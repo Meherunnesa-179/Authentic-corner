@@ -4,6 +4,7 @@ const loadProducts = () => {
   // fetch('js/data.json')
     .then((response) => response.json())
     .then((data) => showProducts(data));
+    // .then((data) => console.log(data[0].description));
 };
  
 loadProducts();
@@ -13,7 +14,6 @@ const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
   for (const product of allProducts) {
     const image = product.image;
-    //by destructuring product object
       const {rate,count}= product.rating
       
     const div = document.createElement("div");
@@ -27,14 +27,12 @@ const showProducts = (products) => {
       <h6>Total-Rating : ${product.rating.count} </h6>
       <h6>Average-rating: ${product.rating.rate}</h6>
       <h5>Price: $ ${product.price}</h5>
-      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success me-2">add to cart</button>
-      <button id="details-btn" onclick='showDetails(${product.description})' class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button></div>
+      <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success me-2">Add to cart</button>
+      <button id="details-btn"  class="btn btn-danger" >Details</button></div>
       `;
     document.getElementById("all-products").appendChild(div);
   }
 };
-
-
 let count = 0;
 const addToCart = (id, price) => {
   count = count + 1;
@@ -91,13 +89,6 @@ const updateTaxAndCharge = () => {
 
 //grandTotal update function
 const updateTotal = () => {
-
-console.log(
-  getInputValue("price") ,
-    getInputValue("delivery-charge") ,
-    getInputValue("total-tax")
-);
-
   const grandTotal =
     getInputValue("price") + getInputValue("delivery-charge") +
     getInputValue("total-tax");
